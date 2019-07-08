@@ -19,6 +19,8 @@ services:
     MYSQL_ROOT_HOST: '%'
    ports:
    - "3306:3306"
+   volumes:
+     - /var/myworkspace/dockercompose-springboot-mysql-nginx/mysql_data/var/lib/mysql:/var/lib/mysql    #To map mysql data path
    restart: always
 
   app:
