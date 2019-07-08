@@ -28,7 +28,7 @@ services:
     volumes:
       - ./app:/app
       - ~/.m2:/root/.m2
-      - /etc:/etc
+      - /etc:/etc   #同步宿主机时间到容器
     expose:
       - "8087"
     depends_on:
