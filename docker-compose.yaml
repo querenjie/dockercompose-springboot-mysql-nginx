@@ -9,7 +9,7 @@ services:
    - 443:443
    volumes:
    - ./nginx/conf.d:/etc/nginx/conf.d
-   - /etc:/etc      #主要是为了同步容器内的时间，/etc/localtime
+#   - /etc:/etc      #主要是为了同步容器内的时间，/etc/localtime
     
   mysql:
    container_name: v-mysql
