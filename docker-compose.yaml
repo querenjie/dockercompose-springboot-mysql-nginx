@@ -20,9 +20,7 @@ services:
    ports:
    - "3306:3306"
    restart: always
-   volumes:
-     - /etc:/etc
-    
+
   app:
     restart: always
     build: ./app
