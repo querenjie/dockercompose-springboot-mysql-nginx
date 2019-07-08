@@ -9,6 +9,7 @@ services:
    - 443:443
    volumes:
    - ./nginx/conf.d:/etc/nginx/conf.d
+   - /etc:/etc      #主要是为了同步容器内的时间，/etc/localtime
     
   mysql:
    container_name: v-mysql
@@ -20,6 +21,8 @@ services:
    ports:
    - "3306:3306"
    restart: always
+   volumes:
+     - /etc:/etc    #主要是为了同步容器内的时间，/etc/localtime
     
   app:
     restart: always
@@ -28,6 +31,7 @@ services:
     volumes:
       - ./app:/app
       - ~/.m2:/root/.m2
+      - /etc:/etc         #主要是为了同步容器内的时间，/etc/localtime
     expose:
       - "8087"
     depends_on:
