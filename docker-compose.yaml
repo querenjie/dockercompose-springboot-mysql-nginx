@@ -1,9 +1,7 @@
 version: '3'
 services:
   nginx:
-    container_name: v-nginx
     image: 192.168.1.23:5000/nginx:1.13
-    restart: always
     ports:
       - 80:80
       - 443:443
@@ -13,7 +11,6 @@ services:
       - overlay
 
   mysql:
-    container_name: v-mysql
     image: 192.168.1.23:5000/mysql-server:5.7
     environment:
       MYSQL_DATABASE: test
@@ -23,24 +20,21 @@ services:
       - "3306:3306"
     volumes:
       - /var/myworkspace/dockercompose-springboot-mysql-nginx/mysql_data/var/lib/mysql:/var/lib/mysql    #To map mysql data path
-    restart: always
     networks:
       - overlay
 
   app:
-    restart: always
-    build: ./app
     working_dir: /app
     volumes:
       - ./app:/app
       - ~/.m2:/root/.m2
       - /etc:/etc   #To synchronize host localtime and container localtime
-    expose:
-      - "8088"
+    ports:
+      - "8088:8088"
     depends_on:
       - nginx
       - mysql
-    command: mvn clean spring-boot:run -Dspring-boot.run.profiles=docker
+    command: java -jar /root/projects/dockercompose-springboot-mysql-nginx/dockercompose-springboot-mysql-nginx-0.0.1-SNAPSHOT.jar
     networks:
       - overlay
 
