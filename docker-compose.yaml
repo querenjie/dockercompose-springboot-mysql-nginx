@@ -24,6 +24,7 @@ services:
       - overlay
 
   app:
+    image: 192.168.1.23:5000/compose_swarm_app:v1.0
     working_dir: /app
     volumes:
       - ./app:/app
