@@ -1,36 +1,36 @@
 version: '3'
 services:
-  nginx02:
-    container_name: v-nginx02
+  nginx:
+    container_name: v-nginx
     image: 192.168.1.23:5000/nginx:1.13
     restart: always
-    hostname: node23
     ports:
-      - 81:80
-      - 444:443
+      - 80:80
+      - 443:443
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d
+    networks:
+      - overlay
 
-
-  mysql02:
-    container_name: v-mysql02
+  mysql:
+    container_name: v-mysql
     image: 192.168.1.23:5000/mysql-server:5.7
     environment:
-      MYSQL_DATABASE: test02
+      MYSQL_DATABASE: test
       MYSQL_ROOT_PASSWORD: root
       MYSQL_ROOT_HOST: '%'
-    hostname: node31
     ports:
-      - "3307:3306"
+      - "3306:3306"
     volumes:
       - /var/myworkspace/dockercompose-springboot-mysql-nginx/mysql_data/var/lib/mysql:/var/lib/mysql    #To map mysql data path
     restart: always
+    networks:
+      - overlay
 
-  app02:
+  app:
     restart: always
     build: ./app
     working_dir: /app
-    hostname: node32
     volumes:
       - ./app:/app
       - ~/.m2:/root/.m2
@@ -41,4 +41,9 @@ services:
       - nginx
       - mysql
     command: mvn clean spring-boot:run -Dspring-boot.run.profiles=docker
+    networks:
+      - overlay
+
+networks:
+  overlay:
 
