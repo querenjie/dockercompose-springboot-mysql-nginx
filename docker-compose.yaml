@@ -11,7 +11,7 @@ services:
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d
     networks:
-      - nw1
+      - ingress
 
 
   mysql02:
@@ -28,7 +28,7 @@ services:
       - /var/myworkspace/dockercompose-springboot-mysql-nginx/mysql_data/var/lib/mysql:/var/lib/mysql    #To map mysql data path
     restart: always
     networks:
-      - nw1
+      - ingress
 
   app02:
     restart: always
@@ -40,7 +40,7 @@ services:
       - ~/.m2:/root/.m2
       - /etc:/etc   #To synchronize host localtime and container localtime
     networks:
-      - nw1
+      - ingress
     expose:
       - "8088"
     depends_on:
@@ -49,5 +49,5 @@ services:
     command: mvn clean spring-boot:run -Dspring-boot.run.profiles=docker
 
   networks:
-    nw1:
+    ingress:
       driver: overlay
