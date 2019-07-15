@@ -10,8 +10,6 @@ services:
       - 444:443
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d
-    networks:
-      - overlay
 
 
   mysql02:
@@ -27,8 +25,6 @@ services:
     volumes:
       - /var/myworkspace/dockercompose-springboot-mysql-nginx/mysql_data/var/lib/mysql:/var/lib/mysql    #To map mysql data path
     restart: always
-    networks:
-      - overlay
 
   app02:
     restart: always
@@ -39,8 +35,6 @@ services:
       - ./app:/app
       - ~/.m2:/root/.m2
       - /etc:/etc   #To synchronize host localtime and container localtime
-    networks:
-      - overlay
     expose:
       - "8088"
     depends_on:
@@ -48,5 +42,3 @@ services:
       - mysql
     command: mvn clean spring-boot:run -Dspring-boot.run.profiles=docker
 
-  networks:
-    overlay:
