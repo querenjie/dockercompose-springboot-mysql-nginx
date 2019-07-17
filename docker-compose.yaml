@@ -6,7 +6,7 @@ services:
       - 80:80
       - 443:443
     volumes:
-      - ./nginx/conf.d:/etc/nginx/conf.d
+      - /var/myworkspace/dockercompose-springboot-mysql-nginx/code/nginx/conf.d:/etc/nginx/conf.d
     networks:
       - overlay
     deploy:
@@ -31,7 +31,7 @@ services:
     image: 192.168.1.23:5000/compose_swarm_app:v1.0
     working_dir: /app
     volumes:
-      - ./app:/app
+      - /var/myworkspace/dockercompose-springboot-mysql-nginx/code/app:/app
       - ~/.m2:/root/.m2
       - /etc:/etc   #To synchronize host localtime and container localtime
     ports:
