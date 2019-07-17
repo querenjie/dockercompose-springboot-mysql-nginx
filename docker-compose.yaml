@@ -9,6 +9,8 @@ services:
       - ./nginx/conf.d:/etc/nginx/conf.d
     networks:
       - overlay
+    deploy:
+      replicas: 1
 
   mysql:
     image: 192.168.1.23:5000/mysql-server:5.7
@@ -22,6 +24,8 @@ services:
       - /var/myworkspace/dockercompose-springboot-mysql-nginx/mysql_data/var/lib/mysql:/var/lib/mysql    #To map mysql data path
     networks:
       - overlay
+    deploy:
+      replicas: 1
 
   app:
     image: 192.168.1.23:5000/compose_swarm_app:v1.0
@@ -38,6 +42,8 @@ services:
     command: java -jar /root/projects/dockercompose-springboot-mysql-nginx/dockercompose-springboot-mysql-nginx-0.0.1-SNAPSHOT.jar
     networks:
       - overlay
+    deploy:
+      replicas: 1
 
 networks:
   overlay:
